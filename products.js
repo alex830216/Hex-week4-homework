@@ -1,7 +1,10 @@
+import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+import pagination from "./pagination.js";
+
 let productModal = "";
 let delProductModal = "";
 
-const app = {
+const app = createApp({
   data() {
     return {
       url: "https://vue3-course-api.hexschool.io/v2/",
@@ -12,6 +15,7 @@ const app = {
         imagesUrl: [],
       },
       isNew: false,
+      page: {},
     };
   },
   methods: {
@@ -28,12 +32,13 @@ const app = {
           window.location = "login.html";
         });
     },
-    getData() {
+    getData(page = 1) {
       axios
-        .get(`${this.url}api/${this.path}/admin/products`)
+        .get(`${this.url}api/${this.path}/admin/products?page=${page}`)
         .then((res) => {
           // 將資料回傳到本地的 products 陣列
           this.products = res.data.products;
+          this.page = res.data.pagination;
         })
         .catch((err) => {
           alert(err.data.message);
@@ -105,6 +110,9 @@ const app = {
       }
     },
   },
+  components: {
+    pagination,
+  },
   // 一開始進入頁面就做
   mounted() {
     // 從 cookie 取回 token
@@ -124,6 +132,11 @@ const app = {
     productModal = new bootstrap.Modal("#productModal");
     delProductModal = new bootstrap.Modal("#delProductModal");
   },
-};
+});
 
-Vue.createApp(app).mount("#app");
+app.component("productModal", {
+  props: ["tempProduct", "addOrUpdateProduct"],
+  template: "#productModalTemplate",
+});
+
+app.mount("#app");
