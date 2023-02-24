@@ -1,5 +1,6 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 import pagination from "./pagination.js";
+import updateProductModal from "./updateProductModal.js";
 
 let productModal = "";
 let delProductModal = "";
@@ -112,6 +113,7 @@ const app = createApp({
   },
   components: {
     pagination,
+    updateProductModal,
   },
   // 一開始進入頁面就做
   mounted() {
@@ -132,11 +134,6 @@ const app = createApp({
     productModal = new bootstrap.Modal("#productModal");
     delProductModal = new bootstrap.Modal("#delProductModal");
   },
-});
-
-app.component("productModal", {
-  props: ["tempProduct", "addOrUpdateProduct"],
-  template: "#productModalTemplate",
 });
 
 app.component("delProductModal", {
