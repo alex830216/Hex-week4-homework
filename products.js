@@ -139,4 +139,9 @@ app.component("productModal", {
   template: "#productModalTemplate",
 });
 
+app.component("delProductModal", {
+  props: ["tempProduct", "delProduct"],
+  template: "#delProductModalTemplate",
+});
+
 app.mount("#app");
