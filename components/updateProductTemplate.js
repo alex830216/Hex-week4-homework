@@ -1,5 +1,5 @@
 export default {
-  props: ["tempProduct", "addOrUpdateProduct"],
+  props: ["tempProduct", "addOrUpdateProduct", "createImages"],
   template: `
     <div class="modal-dialog modal-xl">
       <div class="modal-content border-0">
@@ -43,6 +43,13 @@ export default {
                     v-else
                     @click="tempProduct.imagesUrl.pop()">
                     刪除圖片
+                  </button>
+                </div>
+                <!-- 當該產品資料沒有屬性 imagesUrl 時，可以新增多圖 -->
+                <div v-else>
+                  <button class="btn btn-outline-primary btn-sm d-block w-100"
+                    @click="createImages">
+                    新增圖片
                   </button>
                 </div>
               </div>

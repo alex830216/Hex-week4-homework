@@ -1,10 +1,10 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import pagination from "./pagination.js";
-import updateProductTemplate from "./updateProductTemplate.js";
-import delProductTemplate from "./delProductTemplate.js";
+import pagination from "./components/pagination.js";
+import updateProductTemplate from "./components/updateProductTemplate.js";
+import delProductTemplate from "./components/delProductTemplate.js";
 
-let productModal = "";
-let delProductModal = "";
+let productModal = {};
+let delProductModal = {};
 
 const app = createApp({
   data() {
@@ -94,6 +94,12 @@ const app = createApp({
         .catch((err) => {
           alert(err.data.message);
         });
+    },
+    // 當該產品資料沒有屬性 imagesUrl 時，可以新增多圖
+    createImages() {
+      this.tempProduct.imagesUrl = [];
+      this.tempProduct.imagesUrl.push('');
+      console.log('aaa');
     },
     openModal(status, product) {
       if (status === "create") {
